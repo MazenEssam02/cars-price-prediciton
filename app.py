@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-import pandas as pd
+
 import pickle
 
 app = FastAPI(title="Car Price Prediction API")
@@ -45,7 +45,7 @@ def price_with_dynamic_range(predicted_price: float):
 
 @app.post("/predict")
 def predict_price(data: CarInput):
-    df = pd.DataFrame([data.dict()])
+    df = data.dict()
 
     for col, le in encoders.items():
         if col in df.columns:
